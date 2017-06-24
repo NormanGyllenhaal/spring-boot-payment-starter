@@ -1,0 +1,105 @@
+package top.javatool.payment.service;
+
+
+import org.apache.commons.collections.CollectionUtils;
+import retrofit2.Call;
+import retrofit2.Response;
+import top.javatool.payment.api.AppStorePaymentApi;
+import top.javatool.payment.bean.AppStoreRequest;
+import top.javatool.payment.bean.AppStoreResponse;
+import top.javatool.payment.bean.AppStoreSubscriptionResponse;
+import top.javatool.payment.client.RetrofitClient;
+
+import java.io.IOException;
+import java.util.List;
+
+/**
+ * Created by Yang Peng on 2017/5/10.
+ *
+ * @Description: ${todo} 这里用一句话描述这个类的作用
+ */
+public class AppStorePaymentService {
+
+
+    private AppStorePaymentApi appStorePaymentApi;
+
+
+    private String password;
+
+
+    private String baseUrl;
+
+
+    public AppStorePaymentService(String password, String baseUrl) {
+        this.password = password;
+        this.baseUrl = baseUrl;
+        RetrofitClient retrofitClient = new RetrofitClient(baseUrl);
+        appStorePaymentApi = retrofitClient.getRetrofit().create(AppStorePaymentApi.class);
+    }
+
+
+    /**
+     * app store 消耗内购校验
+     * <p>
+     * <p>
+     * 21000App Store无法读取你提供的JSON数据
+     * 21002 收据数据不符合格式
+     * 21003 收据无法被验证
+     * 21004 你提供的共享密钥和账户的共享密钥不一致
+     * 21005 收据服务器当前不可用
+     * 21006 收据是有效的，但订阅服务已经过期。当收到这个信息时，解码后的收据信息也包含在返回内容中
+     * 21007 收据信息是测试用（sandbox），但却被发送到产品环境中验证
+     * 21008 收据信息是产品环境中使用，但却被发送到测试环境中验证
+     *
+     * @param receiptData app store 收据
+     * @return
+     * @throws IOException 异常
+     */
+    public AppStoreResponse consumeVerify(String receiptData) throws IOException {
+        Call<AppStoreResponse> call = appStorePaymentApi.verifyReceipt(new AppStoreRequest(password, receiptData));
+        Response<AppStoreResponse> response = call.execute();
+        return response.body();
+    }
+
+
+
+
+
+
+    /**
+     * app store 订阅内购校验
+     *
+     * @param receiptData app store 收据
+     * @return 验证结果
+     */
+    public boolean subscriptionVerify(String receiptData) throws IOException {
+        Call<AppStoreSubscriptionResponse> call = appStorePaymentApi.subscriptionVerifyReceipt(new AppStoreRequest(password, receiptData));
+        Response<AppStoreSubscriptionResponse> response = call.execute();
+        AppStoreSubscriptionResponse subscriptionResponse = response.body();
+        if (subscriptionResponse.getStatus() == 0) {
+            long expiresDateMs = subscriptionResponse.getLatest_receipt_info().getExpires_date_ms();
+            long originalPurchaseDateMs = subscriptionResponse.getLatest_receipt_info().getOriginal_purchase_date_ms();
+            long timeMillis = System.currentTimeMillis();
+            if (timeMillis >= originalPurchaseDateMs && timeMillis <= expiresDateMs) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+
+    public boolean checkResponse(AppStoreResponse body,String transactionId){
+        if (body.getStatus() == 0) {
+            List<AppStoreResponse.ReceiptBean.InAppBean> in_app = body.getReceipt().getIn_app();
+            if (CollectionUtils.isNotEmpty(in_app)) {
+                for (AppStoreResponse.ReceiptBean.InAppBean inAppBean : in_app) {
+                    if (inAppBean.getTransaction_id().equals(transactionId)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+}
