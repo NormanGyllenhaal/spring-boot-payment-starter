@@ -8,19 +8,20 @@ import top.javatool.payment.bean.GooglePlayOauthResponse;
 
 /**
  * Created by Yang Peng on 2017/5/11.
- *
+ * google play 获取token api
  */
 public interface GooglePlayOauthApi {
 
 
     /**
+     * 获取google play 查询订单需要的的access_token
      * grant_type=authorization_code
      * code= the code from the previous step
      * client_id=the client ID token created in the APIs Console
      * client_secret=the client secret corresponding to the client ID
      * redirect_uri=the URI registered with the client ID
      *
-     * @return 验证结果
+     * @return token
      */
     @FormUrlEncoded
     @POST("https://accounts.google.com/o/oauth2/token")
@@ -30,7 +31,8 @@ public interface GooglePlayOauthApi {
 
 
     /**
-     * Using the refresh token
+     * 当access_token过期后使用 refresh_token 刷新token
+     *
      * <p>
      * Each access token is only valid for a short time. Once the current access token expires, the server will need to use the refresh token to get a new one. To do this, send a POST request to https://accounts.google.com/o/oauth2/token with the following fields set:
      * <p>

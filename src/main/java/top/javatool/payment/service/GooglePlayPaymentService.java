@@ -20,12 +20,17 @@ import java.security.Signature;
 import java.security.spec.X509EncodedKeySpec;
 
 /**
+ *
+ * google play 订单查询服务
  * Created by Yang Peng on 2017/5/11.
  *
  */
 public class GooglePlayPaymentService {
 
 
+    /**
+     * google play 订单数据的本地验证的 rsa 公钥
+     */
     private static final String base64PublicKey = "";
 
     private static final String KEY_FACTORY_ALGORITHM = "RSA";
@@ -35,9 +40,15 @@ public class GooglePlayPaymentService {
     private GooglePlayPaymentApi googlePlayPaymentApi;
 
 
+    /**
+     * google play 查询授权api
+     */
     private GooglePlayOauthApi googlePlayOauthApi;
 
 
+    /**
+     * api 验证地址
+     */
     private String baseUrl;
 
 
@@ -52,12 +63,12 @@ public class GooglePlayPaymentService {
     /**
      * 消耗购买验证
      *
-     * @param packageName
-     * @param productId
-     * @param token
-     * @param accessToken
-     * @return
-     * @throws IOException
+     * @param packageName 产品包名
+     * @param productId 产品id
+     * @param token 订单 token
+     * @param accessToken  自己的token
+     * @return 订单查询结果
+     * @throws IOException 如果用户token 过期，会查询失败
      */
     public GooglePlayProductResponse productVerify(String packageName, String productId, String token, String accessToken) throws IOException, TokenExpireException {
         Call<GooglePlayProductResponse> call = googlePlayPaymentApi.getProduct(packageName, productId, token, accessToken);
@@ -69,6 +80,15 @@ public class GooglePlayPaymentService {
     }
 
 
+    /**
+     *  订阅购买验证
+     * @param packageName 产品包名
+     * @param subscriptionId 订阅产品id
+     * @param token 订单token
+     * @param accessToken  自己的token
+     * @return 订单查询结果
+     * @throws IOException
+     */
     public Response<GooglePlaySubscriptionResponse> subscriptionVerify(String packageName, String subscriptionId, String token, String accessToken) throws IOException {
         Call<GooglePlaySubscriptionResponse> call = googlePlayPaymentApi.getSubscription(packageName, subscriptionId, token, accessToken);
         try {
@@ -78,6 +98,7 @@ public class GooglePlayPaymentService {
             return call.execute();
         }
     }
+
 
 
     public boolean checkSubPaymentState(Response<GooglePlaySubscriptionResponse> response) throws TokenExpireException {
@@ -93,14 +114,14 @@ public class GooglePlayPaymentService {
 
 
     /**
-     * 获取 access_token
+     * 获取 自己的 access_token
      *
-     * @param code
-     * @param clientId
-     * @param clientSecret
-     * @param redirectUri
-     * @return
-     * @throws IOException
+     * @param code url 回调code
+     * @param clientId app 产品id
+     * @param clientSecret app 秘钥
+     * @param redirectUri 回调url
+     * @return access_token
+     * @throws IOException 接口通信异常
      */
     public GooglePlayOauthResponse getToken(String code, String clientId, String clientSecret, String redirectUri) throws IOException {
         Call<GooglePlayOauthResponse> call = googlePlayOauthApi.oauth("authorization_code", code, clientId, clientSecret, redirectUri);
@@ -112,11 +133,11 @@ public class GooglePlayPaymentService {
     /**
      * 刷新 access_token
      *
-     * @param clientId
-     * @param clientSecret
-     * @param refreshToken
-     * @return
-     * @throws IOException
+     * @param clientId app的产品id
+     * @param clientSecret app 秘钥
+     * @param refreshToken 刷新token
+     * @return access_token
+     * @throws IOException 接口通信异常
      */
     public GooglePlayOauthResponse freshToken(String clientId, String clientSecret, String refreshToken) throws IOException {
         Call<GooglePlayOauthResponse> call = googlePlayOauthApi.refreshToken("refresh_token", refreshToken, clientId, clientSecret);
@@ -128,10 +149,10 @@ public class GooglePlayPaymentService {
     /**
      * 验证签名数据体
      *
-     * @param signedData
-     * @param signature
-     * @return
-     * @throws Exception
+     * @param signedData 客户端的数据体
+     * @param signature 客户端加密串
+     * @return 验证结果
+     * @throws Exception 如果解密失败回抛出异常
      */
     public boolean verifyData(String signedData, String signature) throws Exception {
         PublicKey key = generatePublicKey(base64PublicKey);
@@ -139,11 +160,13 @@ public class GooglePlayPaymentService {
     }
 
 
+
     private PublicKey generatePublicKey(String encodedPublicKey) throws Exception {
         byte[] decodedKey = Base64.decode(encodedPublicKey, Base64.DEFAULT);
         KeyFactory keyFactory = KeyFactory.getInstance(KEY_FACTORY_ALGORITHM);
         return keyFactory.generatePublic(new X509EncodedKeySpec(decodedKey));
     }
+
 
 
     private boolean verify(PublicKey publicKey, String signedData, String signature) throws Exception {

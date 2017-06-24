@@ -8,6 +8,8 @@ import top.javatool.payment.service.AppStorePaymentService;
 import top.javatool.payment.service.GooglePlayPaymentService;
 
 /**
+ *
+ * spring boot 自动依赖注入
  * Created by Yang Peng on 2017/5/10.
  *
  */

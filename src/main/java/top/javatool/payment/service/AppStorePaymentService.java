@@ -14,18 +14,31 @@ import java.io.IOException;
 import java.util.List;
 
 /**
+ *
+ *  app store 订单查询服务
  * Created by Yang Peng on 2017/5/10.
  *
  */
 public class AppStorePaymentService {
 
 
+    /**
+     * app store 订单查询api
+     */
     private AppStorePaymentApi appStorePaymentApi;
 
 
+    /**
+     *  ituns 查询密码
+     */
     private String password;
 
 
+    /**
+     * 查询地址
+     *  沙盒 https://sandbox.itunes.apple.com/verifyReceipt/
+     *  正式 https://buy.itunes.apple.com/verifyReceipt/
+     */
     private String baseUrl;
 
 
@@ -38,7 +51,7 @@ public class AppStorePaymentService {
 
 
     /**
-     * app store 消耗内购校验
+     * app store 消耗内购订单查询
      * <p>
      * <p>
      * 21000App Store无法读取你提供的JSON数据
@@ -51,7 +64,7 @@ public class AppStorePaymentService {
      * 21008 收据信息是产品环境中使用，但却被发送到测试环境中验证
      *
      * @param receiptData app store 收据
-     * @return
+     * @return 订单信息
      * @throws IOException 异常
      */
     public AppStoreResponse consumeVerify(String receiptData) throws IOException {
@@ -59,8 +72,6 @@ public class AppStorePaymentService {
         Response<AppStoreResponse> response = call.execute();
         return response.body();
     }
-
-
 
 
 
@@ -87,7 +98,12 @@ public class AppStorePaymentService {
     }
 
 
-
+    /**
+     * 检查app store 校验数据体，判断是否是一个成功订单
+     * @param body app store 返回的订单信息
+     * @param transactionId 事务id
+     * @return 验证结果
+     */
     public boolean checkResponse(AppStoreResponse body,String transactionId){
         if (body.getStatus() == 0) {
             List<AppStoreResponse.ReceiptBean.InAppBean> in_app = body.getReceipt().getIn_app();
