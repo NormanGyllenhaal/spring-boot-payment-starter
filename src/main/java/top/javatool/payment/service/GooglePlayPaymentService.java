@@ -31,7 +31,7 @@ public class GooglePlayPaymentService {
     /**
      * google play 订单数据的本地验证的 rsa 公钥
      */
-    private static final String base64PublicKey = "";
+    private  String base64PublicKey = "";
 
     private static final String KEY_FACTORY_ALGORITHM = "RSA";
 
@@ -52,8 +52,9 @@ public class GooglePlayPaymentService {
     private String baseUrl;
 
 
-    public GooglePlayPaymentService(String baseUrl) {
+    public GooglePlayPaymentService(String baseUrl,String base64PublicKey) {
         this.baseUrl = baseUrl;
+        this.base64PublicKey = base64PublicKey;
         Retrofit retrofit = new RetrofitClient(baseUrl).getRetrofit();
         googlePlayPaymentApi = retrofit.create(GooglePlayPaymentApi.class);
         googlePlayOauthApi = retrofit.create(GooglePlayOauthApi.class);

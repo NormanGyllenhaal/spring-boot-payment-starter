@@ -11,5 +11,6 @@ payment:
       appStoreUrl: https://buy.itunes.apple.com/verifyReceipt/
       # google play 的验证地址 正式和测试环境相同
       googlePlayUrl: https://www.googleapis.com/
+      base64PublicKey: google play 本地验证的ras公钥
 ```
   

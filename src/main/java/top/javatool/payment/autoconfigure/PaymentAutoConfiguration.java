@@ -36,7 +36,7 @@ public class PaymentAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
     public GooglePlayPaymentService googlePlayPaymentService(){
-        return  new GooglePlayPaymentService(paymentProperties.getGooglePlayUrl());
+        return  new GooglePlayPaymentService(paymentProperties.getGooglePlayUrl(),paymentProperties.getBase64PublicKey());
     }
 
 

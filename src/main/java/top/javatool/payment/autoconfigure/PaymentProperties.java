@@ -22,6 +22,18 @@ public class PaymentProperties {
     private String googlePlayUrl;
 
 
+    private String base64PublicKey;
+
+
+
+    public String getBase64PublicKey() {
+        return base64PublicKey;
+    }
+
+    public void setBase64PublicKey(String base64PublicKey) {
+        this.base64PublicKey = base64PublicKey;
+    }
+
     public String getAppStorePassword() {
         return appStorePassword;
     }
