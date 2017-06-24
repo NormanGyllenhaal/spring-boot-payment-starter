@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 
 /**
+ *
  * Created by apple on 2017/4/9.
  */
 public class FastJsonResponseBodyConverter<T> implements Converter<ResponseBody, T> {

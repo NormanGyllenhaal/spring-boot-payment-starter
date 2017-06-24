@@ -10,7 +10,7 @@ import top.javatool.payment.bean.GooglePlaySubscriptionResponse;
 /**
  * Created by Yang Peng on 2017/5/10.
  *
- * @Description: google pay 订单查询 api
+ *  google pay 订单查询 api
  */
 public interface GooglePlayPaymentApi {
 
@@ -23,10 +23,10 @@ public interface GooglePlayPaymentApi {
      * purchaseState	integer	订单的采购状态。可能的值是：0 购买 1 取消
      * purchaseTimeMillis	long	产品购买时间（自1970年1月1日起）。
      *
-     * @param packageName
-     * @param productId
-     * @param token
-     * @return
+     * @param packageName 支付包名称
+     * @param productId 产品id
+     * @param token token
+     * @return 验证结果
      */
     @GET("/androidpublisher/v2/applications/{packageName}/purchases/products/{productId}/tokens/{token}")
     Call<GooglePlayProductResponse> getProduct(@Path("packageName") String packageName, @Path("productId") String productId,
@@ -48,10 +48,10 @@ public interface GooglePlayPaymentApi {
      * startTimeMillis	long	授予订阅的时间，自纪元以来的毫秒。
      * userCancellationTimeMillis	long	用户取消订阅的时间，从时代开始以毫秒为单位。仅当cancelReason为0时才出现。
      *
-     * @param packageName
-     * @param subscriptionId
-     * @param token
-     * @return
+     * @param packageName 包名称
+     * @param subscriptionId 订阅产品id
+     * @param token token
+     * @return 验证结果
      */
     @GET("/androidpublisher/v2/applications/{packageName}/purchases/subscriptions/{subscriptionId}/tokens/{token}")
     Call<GooglePlaySubscriptionResponse> getSubscription(@Path("packageName") String packageName, @Path("subscriptionId") String subscriptionId,

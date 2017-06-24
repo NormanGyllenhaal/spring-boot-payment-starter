@@ -5,7 +5,6 @@ import com.alibaba.fastjson.annotation.JSONField;
 /**
  * Created by Yang Peng on 2017/5/10.
  *
- * @Description: ${todo} 这里用一句话描述这个类的作用
  */
 public class AppStoreRequest {
 

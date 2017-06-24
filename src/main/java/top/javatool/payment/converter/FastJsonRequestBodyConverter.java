@@ -8,6 +8,7 @@ import retrofit2.Converter;
 import java.io.IOException;
 
 /**
+ *
  * Created by apple on 2017/4/9.
  */
 public class FastJsonRequestBodyConverter<T> implements Converter<T, RequestBody> {

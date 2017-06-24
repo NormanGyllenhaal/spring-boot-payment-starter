@@ -3,7 +3,7 @@ package top.javatool.payment.bean;
 /**
  * Created by Yang Peng on 2017/5/11.
  *
- * @Description: google play 订单查询响应数据对象
+ *  google play 订单查询响应数据对象
  */
 public class GooglePlayProductResponse {
 

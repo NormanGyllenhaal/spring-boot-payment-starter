@@ -1,6 +1,7 @@
 package top.javatool.payment.bean;
 
 /**
+
  * Created by admin on 2017/1/3.
  */
 public class ProductSignedData {

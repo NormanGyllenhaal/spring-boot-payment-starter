@@ -9,6 +9,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 
 /**
+ *
  * Created by apple on 2017/4/9.
  */
 public class FastJsonConverterFactory extends Converter.Factory {

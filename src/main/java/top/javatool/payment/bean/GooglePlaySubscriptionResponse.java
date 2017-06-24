@@ -3,7 +3,7 @@ package top.javatool.payment.bean;
 /**
  * Created by Yang Peng on 2017/5/11.
  *
- * @Description: google 订阅支付返回数据对象
+ *  google 订阅支付返回数据对象
  */
 public class GooglePlaySubscriptionResponse {
 

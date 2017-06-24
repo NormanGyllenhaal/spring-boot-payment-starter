@@ -10,7 +10,7 @@ import top.javatool.payment.bean.AppStoreSubscriptionResponse;
 /**
  * Created by Yang Peng on 2017/5/10.
  *
- * @Description: app store 支付验证接口
+ * app store 支付验证接口
  */
 public interface AppStorePaymentApi {
 
