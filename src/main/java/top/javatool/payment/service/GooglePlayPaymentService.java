@@ -1,16 +1,17 @@
 package top.javatool.payment.service;
 
-import com.rcplatform.livechat.payment.api.GooglePlayOauthApi;
-import com.rcplatform.livechat.payment.api.GooglePlayPaymentApi;
-import com.rcplatform.livechat.payment.bean.GooglePlayOauthResponse;
-import com.rcplatform.livechat.payment.bean.GooglePlayProductResponse;
-import com.rcplatform.livechat.payment.bean.GooglePlaySubscriptionResponse;
-import com.rcplatform.livechat.payment.client.RetrofitClient;
-import com.rcplatform.livechat.payment.exception.TokenExpireException;
-import com.rcplatform.livechat.payment.util.Base64;
+
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import top.javatool.payment.api.GooglePlayOauthApi;
+import top.javatool.payment.api.GooglePlayPaymentApi;
+import top.javatool.payment.bean.GooglePlayOauthResponse;
+import top.javatool.payment.bean.GooglePlayProductResponse;
+import top.javatool.payment.bean.GooglePlaySubscriptionResponse;
+import top.javatool.payment.client.RetrofitClient;
+import top.javatool.payment.exception.TokenExpireException;
+import top.javatool.payment.util.Base64;
 
 import java.io.IOException;
 import java.security.KeyFactory;
@@ -26,7 +27,7 @@ import java.security.spec.X509EncodedKeySpec;
 public class GooglePlayPaymentService {
 
 
-    private static final String base64PublicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAl7H8KY+eZ9xlq3Gv5/7v4HA3vk5z8Gsxo3dHWQEf7apnppvBPer8yX5R2Ep/3imTvcrU5YsFyZLBxAtegxNYrUKX6/9MzU+jsX8Q0XTK1eNS2GqIuRN/c9M3uqip9IQ7AmQQsREbClnmeHWjkEwzFgix/2RtNb1dDfSRMyzyiDDpZmBAFX1wAslzDoxAbW1TEsspQ7kmdkMHFM7AcG8OnH2wFLZT4Wzcl1GfQtNhkE02GxKfn8Ohkd4jfIE+N2i3MHv5CS309WssVYVERa8xmVtby0Y0A7sONAC15qTmMrt8gWotQv7XrBqa+DFs0BLtR75Syti9xu7Y9G5lg1RZxQIDAQAB";
+    private static final String base64PublicKey = "";
 
     private static final String KEY_FACTORY_ALGORITHM = "RSA";
 
