@@ -6,7 +6,7 @@
 
     <groupId>top.javatool</groupId>
     <artifactId>spring-boot-payment-starter</artifactId>
-    <version>1.2</version>
+    <version>1.2.0</version>
     <name>spring-boot-payment-starter</name>
     <description>app store and goole play pament sdk</description>
     <url>https://github.com/NormanGyllenhaal/spring-boot-payment-starter.git</url>
