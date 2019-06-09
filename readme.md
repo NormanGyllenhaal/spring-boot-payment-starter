@@ -9,7 +9,7 @@
 <dependency>
     <groupId>top.javatool</groupId>
     <artifactId>spring-boot-payment-starter</artifactId>
-    <version>1.1</version>
+    <version>1.2.0</version>
 </dependency>
 ```
 ```java
