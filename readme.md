@@ -4,7 +4,7 @@
 
 使用retrofit2 封装google play 和 app store 支付验证api
 
-已提交到maven中央仓库
+spring boot 已提交到maven中央仓库
 ```xml
 <dependency>
     <groupId>top.javatool</groupId>
